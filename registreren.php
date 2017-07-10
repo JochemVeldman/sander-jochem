@@ -4,16 +4,9 @@
             include_once('functions/mainfunctions.php');
         ?>
         
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        
-        <!-- Latest compiled and minified CSS for bootstrap-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-        <!-- include jquery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        
-        <!-- Latest compiled and minified JavaScript for bootstrap -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <?php 
+            include_once('includes/links.php');
+        ?>
     </head>
     <body>
         <?php 
@@ -25,7 +18,7 @@
                 <form method="POST" action="<?php echo htmlspecialchars('registreren_voltooien.php');?>">
                     <div class="form-group">
                         <label for="username">Gebruikersnaam:</label>
-                        <input type="text" class="form-control" id="gebruikersnaam" name="gebruikersnaam">
+                        <input type="text" class="form-control" id="gebruikersnaam" name="gebruikersnaam" onInput="check_gebruikersnaam()">
                     </div>
                     <div class="form-group">
                         <label for="email">Email adres:</label>
@@ -33,11 +26,11 @@
                     </div>
                     <div class="form-group">
                         <label for="pwd">Wachtwoord:</label>
-                        <input type="password" class="form-control" id="wachtwoord" name="wachtwoord">
+                        <input type="password" class="form-control" id="wachtwoord" name="wachtwoord" onInput="check_pw()">
                     </div>
                     <div class="form-group">
                         <label for="pwd">Wachtwoord herhalen:</label>
-                        <input type="password" class="form-control" id="wachtwoord2" name="wachtwoord2">
+                        <input type="password" class="form-control" id="wachtwoord2" name="wachtwoord2" onInput="check_pw()">
                     </div>             
                     <button type="submit" class="btn btn-default" id="submit_button" disabled>Submit</button>
                 </form>
@@ -45,11 +38,47 @@
         </div>
         
         <script>
-            var wachtwoord = document.getElementById("wachtwoord").value;
-            var wachtwoord2 = document.getElementById("wachtwoord2").value;
+            $('#gebruikersnaam').tooltip({'trigger':'focus', 'title': 'Tussen de 4 en 15 karakters.', 'placement' : 'right'});
+            $('#email').tooltip({'trigger':'focus', 'title': 'Gebruik een geldig e-mail adres.', 'placement' : 'right'});
+            $('#wachtwoord').tooltip({'trigger':'focus', 'title': 'Tussen de 6 en 15 karakters.', 'placement' : 'right'});
+            $('#wachtwoord2').tooltip({'trigger':'focus', 'title': 'Herhaal hier het wachtwoord.', 'placement' : 'right'});
             
-            if(wachtwoord == wachtwoord2){
-                document.getElementById("submit_button").disabled = false;   
+            var pwOK = false;
+            var gnOK = false;
+            
+            
+            function enable_button(){
+                if(pwOK == true && gnOK == true){
+                    document.getElementById("submit_button").disabled = false;
+                }
+            }    
+            
+            function check_pw(){
+                var wachtwoord = document.getElementById("wachtwoord").value;
+                var wachtwoord2 = document.getElementById("wachtwoord2").value;
+                //hier is ww gelijk
+                if(wachtwoord == wachtwoord2 && wachtwoord.length > 5 && wachtwoord.length < 16){
+                    document.getElementById("wachtwoord2").style.borderColor = "#ccc";
+                    pwOK = true;
+                }else{
+                    //hier is het niet gelijk
+                    document.getElementById("wachtwoord2").style.borderColor = "red";
+                }
+                
+                enable_button();
+            }
+            
+            function check_gebruikersnaam(){
+                var gebruikersnaam = document.getElementById("gebruikersnaam").value;
+                
+                if(gebruikersnaam.length > 3 && gebruikersnaam.length < 16){
+                    document.getElementById("gebruikersnaam").style.borderColor = "#ccc";
+                    gnOK = true;
+                }else{
+                    document.getElementById("gebruikersnaam").style.borderColor = "red";
+                }
+                
+                enable_button();
             }
         </script>
     </body>
