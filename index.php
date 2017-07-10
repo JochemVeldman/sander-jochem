@@ -1,5 +1,9 @@
 <html>
     <head>
+        <?php 
+            include_once('functions/mainfunctions.php');
+        ?>
+        
         <link rel="stylesheet" type="text/css" href="css/main.css">
         
         <!-- Latest compiled and minified CSS for bootstrap-->
@@ -12,12 +16,19 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
-        <?php include_once("includes/header.php"); ?>
+        <?php 
+        include_once("includes/header.php"); 
+        ?>
         
         <div class="container">
             <div class="jumbotron">
                 <h1>Welkom op rarevragen.nl</h1>
             </div>
+            
+            <?php
+                connectDB();
+                
+            ?>
         </div>
     </body>
 </html>
