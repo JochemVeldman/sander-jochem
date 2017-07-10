@@ -3,6 +3,8 @@ html, body{
     padding: 0;
     background-color: orange;
 }
+
+/** Hieronder wordt de navbaar aangepast **/
 li {
     font-family: Montserrat;
     font-size: 20px;
@@ -18,4 +20,4 @@ b {
     padding-top: 10px;
 }
 
-
+/** Hierboven wordt de navbaar aangepast **/
