@@ -3,3 +3,19 @@ html, body{
     padding: 0;
     background-color: orange;
 }
+li {
+    font-family: Montserrat;
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+b {
+    font-size: 30px;
+}
+
+.navbar-header {
+    height: 70px;
+    padding-top: 10px;
+}
+
+
