@@ -19,6 +19,8 @@
                 <li><a href="#">Nieuw</a></li>
                 <li><a href="#">Beste</a></li>
                 <li><a href="#">Categorieën</a></li>
+                <li><a href="#">Stel vraag</a></li>
+
             </ul>
             
             <ul class="nav navbar-nav navbar-right">

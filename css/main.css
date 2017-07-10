@@ -7,12 +7,12 @@ html, body{
 /** Hieronder wordt de navbaar aangepast **/
 li {
     font-family: Montserrat;
-    font-size: 20px;
+    font-size: 16px;
     padding-top: 10px;
 }
 
 b {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .navbar-header {
