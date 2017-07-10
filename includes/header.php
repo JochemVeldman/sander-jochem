@@ -29,7 +29,6 @@
                     </ul>
                 </li>
             </ul>
-<<<<<<< HEAD
             
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -38,7 +37,6 @@
                     <li><a href="#">Mijn profiel</a></li>
                     <li><a href="#">Instellingen</a></li>
                     <li><a href="#">Afmelden</a></li>
-=======
             <form class="navbar-form navbar-left">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Gebruikersnaam">
@@ -54,7 +52,6 @@
                     <li><a href="#">Instellingen</a></li>
                     <li><a href="#">Instellingen</a></li>
                     <li><a href="#">Instellingen</a></li>
->>>>>>> master
 
                 </ul>
                 </li>
