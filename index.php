@@ -18,16 +18,10 @@
     </head>
 
     <body>
-<<<<<<< HEAD
 
         <?php include_once("includes/header.php"); ?>
 
-=======
-        <?php 
-        include_once("includes/header.php"); 
-        ?>
         
->>>>>>> master
         <div class="container">
             <div class="jumbotron">
                 <h1>Welkom op rarevragen.nl</h1>
