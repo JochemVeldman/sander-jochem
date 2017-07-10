@@ -36,12 +36,20 @@
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding: 8px;"><img src="https://puu.sh/wGdqE/146889b69d.png" style="border-radius: 50%; width: auto; height: 34px; margin-right: 10px;">Jochem Veldkoning <span class="caret"></span></a>
                 <ul class="dropdown-menu">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
                     <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true" style="margin-right: 12px;"></span> Mijn profiel</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="margin-right: 12px;"></span> Instellingen</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true" style="margin-right: 12px;"></span> Afmelden</a></li>
                     <li><a href="#">Mijn profiel</a></li>
                     <li><a href="#">Instellingen</a></li>
                     <li><a href="#">Afmelden</a></li>
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> master
                 </ul>
                 </li>
             </ul>
