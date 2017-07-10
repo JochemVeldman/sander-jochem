@@ -2,10 +2,8 @@
 
     <head>
         <?php 
+            session_start();
             include_once('functions/mainfunctions.php');
-        ?>
-        
-        <?php 
             include_once('includes/links.php');
         ?>
         
@@ -21,11 +19,6 @@
             <div class="jumbotron">
                 <h1>Welkom op rarevragen.nl</h1>
             </div>
-            
-            <?php
-                connectDB();
-                
-            ?>
         </div>
 
     </body>

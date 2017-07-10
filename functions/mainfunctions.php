@@ -18,20 +18,29 @@
 
 
     function register($email, $gebruikersnaam, $wachtwoord){
-        $conn = connectDB();
+        try{
+            $conn = connectDB();
+            $wachtwoord = password_hash($wachtwoord, PASSWORD_DEFAULT);
+            
+            $statement = $conn->prepare("INSERT INTO gebruikers(email, gebruikersnaam, wachtwoord, datum_aangemaakt)
+                VALUES(:email, :gebruikersnaam, :wachtwoord, :datum_aangemaakt)");
+            $statement->execute(array(
+                "email" => $email,
+                "gebruikersnaam" => $gebruikersnaam,
+                "wachtwoord" => $wachtwoord,
+                "datum_aangemaakt" => date("Y-m-d")
+            ));
+
+        }catch(PDOException $e){
+            echo $e->getMessage();
+        }
         
-        $statement = $conn->prepare("INSERT INTO gebruikers(email, gebruikersnaam, wachtwoord)
-            VALUES(:email, :gebruikersnaam, :wachtwoord)");
-        $statement->execute(array(
-            "email" => $email,
-            "gebruikersnaam" => $gebruikersnaam,
-            "wachtwoord" => $wachtwoord
-        ));
     }
 
     function login($gebruikersnaam,$email,$wachtwoord){
         try{
-            $stmt = $this->db->prepare("SELECT * FROM gebruikers WHERE gebruikersnaam=:gebruikersnaam OR email=:email LIMIT 1");
+            $conn = connectDB();
+            $stmt = $conn->prepare("SELECT * FROM gebruikers WHERE gebruikersnaam=:gebruikersnaam OR email=:email LIMIT 1");
             $stmt->execute(array(':gebruikersnaam'=>$gebruikersnaam, ':email'=>$email));
             $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
             if($stmt->rowCount() > 0){
