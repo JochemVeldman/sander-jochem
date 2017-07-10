@@ -32,8 +32,9 @@
         <?php include_once("includes/header.php"); ?>
         
         <div class="container">
-            Hello world!
+            <div class="jumbotron">
+                <h1>Welkom op rarevragen.nl</h1>
+            </div>
         </div>
-    
     </body>
 </html>

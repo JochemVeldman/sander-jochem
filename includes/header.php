@@ -1,5 +1,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
+        
+    <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -8,13 +10,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Rarevragen.nl</a>
+            <a class="navbar-brand active" href="#"><b>Rarevragen.nl  <span class="sr-only">(current)</span></b></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Startpagina <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Categorieën</a></li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -32,23 +34,15 @@
             
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account naam <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding: 8px;"><img src="https://puu.sh/wGdqE/146889b69d.png" style="border-radius: 50%; width: auto; height: 34px; margin-right: 10px;">Jochem Veldkoning <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Mijn profiel</a></li>
-                    <li><a href="#">Instellingen</a></li>
-                    <li><a href="#">Afmelden</a></li>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mijn account <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Instellingen</a></li>
-                    <li><a href="#">Instellingen</a></li>
-                    <li><a href="#">Instellingen</a></li>
-
+                    <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true" style="margin-right: 12px;"></span> Mijn profiel</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true" style="margin-right: 12px;"></span> Instellingen</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true" style="margin-right: 12px;"></span> Afmelden</a></li>
                 </ul>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
+        </div>
     </div><!-- /.container-fluid -->
 </nav>        
