@@ -13,9 +13,12 @@
     </head>
     <body>
         <?php include_once("includes/header.php"); ?>
+<<<<<<< HEAD
         
         <div class="container">
             Hello world!
         </div>
+=======
+>>>>>>> master
     </body>
 </html>
