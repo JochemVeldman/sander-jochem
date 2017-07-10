@@ -37,13 +37,6 @@
                     <li><a href="#">Mijn profiel</a></li>
                     <li><a href="#">Instellingen</a></li>
                     <li><a href="#">Afmelden</a></li>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Gebruikersnaam">
-                    <input type="password" class="form-control" placeholder="Wachtwoord">
-                </div>
-                <button type="submit" class="btn btn-default">Login</button>
-            </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
