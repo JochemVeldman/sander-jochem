@@ -30,10 +30,9 @@
                     $wachtwoord = test_input($_POST["wachtwoord"]);
                     $wachtwoord2 = test_input($_POST["wachtwoord2"]);
                         
-                    echo $gebruikersnaam; 
-                    echo $email;
-                    echo $wachtwoord;
-                    echo $wachtwoord2;
+                    register($email, $gebruikersnaam, $wachtwoord);
+                    
+                    
                 }else{
                     header('Location: registreren.php');
                 }

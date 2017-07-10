@@ -39,10 +39,19 @@
                         <label for="pwd">Wachtwoord herhalen:</label>
                         <input type="password" class="form-control" id="wachtwoord2" name="wachtwoord2">
                     </div>             
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default" id="submit_button" disabled>Submit</button>
                 </form>
             </div>
         </div>
+        
+        <script>
+            var wachtwoord = document.getElementById("wachtwoord").value;
+            var wachtwoord2 = document.getElementById("wachtwoord2").value;
+            
+            if(wachtwoord == wachtwoord2){
+                document.getElementById("submit_button").disabled = false;   
+            }
+        </script>
     </body>
 </html>
 
