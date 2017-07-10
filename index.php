@@ -12,10 +12,28 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
+        <?php
+            $password = 'varkensoog';
+        ?>
+        <script>
+            function myFunction(){
+                var x;
+                var name=prompt("Password?");
+                if (name == "<?php print($password); ?>"){
+                   alert('Welcome my Lord.');
+                }else{
+                    myFunction();
+                }
+            }
+            
+            window.onpaint = myFunction();
+        </script>
+        
         <?php include_once("includes/header.php"); ?>
         
         <div class="container">
             Hello world!
         </div>
+    
     </body>
 </html>
