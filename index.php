@@ -12,15 +12,13 @@
             <div class="jumbotron">
                 <h1>Welkom op rarevragen.nl</h1>
             </div>
-<<<<<<< HEAD
             
             <?php
                 connectDB();
+           ?>
         
-=======
             <div class="row" style="padding-left: 15px; padding-right: 15px">
                 <div class="col-md-8">
->>>>>>> master
                 
                 </div>
                 <div class="col-md-4" style="background-color: #eee; padding: 20px;">

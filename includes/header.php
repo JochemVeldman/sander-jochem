@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand active" href="index.php">Rarevragen.nl</a>
+            <a class="navbar-brand active" id="naam_navbar" href="index.php">Rarevragen.nl</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
