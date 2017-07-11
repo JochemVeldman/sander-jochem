@@ -15,26 +15,24 @@
         ?>
         
         <div class="container">
-            <div id="registreren_container" style="width: 50%">
-                <form method="POST" action="<?php echo htmlspecialchars('registreren_voltooien.php');?>">
-                    <div class="form-group">
-                        <label for="username">Gebruikersnaam:</label>
-                        <input type="text" class="form-control" id="gebruikersnaam" name="gebruikersnaam">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email adres:</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Wachtwoord:</label>
-                        <input type="password" class="form-control" id="wachtwoord" name="wachtwoord">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Wachtwoord herhalen:</label>
-                        <input type="password" class="form-control" id="wachtwoord2" name="wachtwoord2">
-                    </div>             
-                    <button type="submit" class="btn btn-default" id="submit_button" disabled>Submit</button>
-                </form>
+            <div class="col-md-8 col-md-offset-2">
+                <div id="stelvraag_container">
+                    <form method="POST" action="<?php echo htmlspecialchars('registreren_voltooien.php');?>">
+                        <div class="form-group">
+                            <label for="Titel">Titel:</label>
+                            <input type="text" class="form-control" id="titel_vraag" name="gebruikersnaam">
+                        </div>
+                        <div class="form-group">
+                            <label for="Vraag">Vraag:</label>
+                            <textarea type="text" class="form-control" id="vraag" name="email"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Categorie">Categorie:</label>
+                            <input type="text" class="form-control" id="categorie_vraag" name="wachtwoord">
+                        </div>        
+                        <button type="submit" class="btn btn-default" id="submit_button">Plaats vraag</button>
+                    </form>
+                </div>
             </div>
         </div>
         

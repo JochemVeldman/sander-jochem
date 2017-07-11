@@ -24,6 +24,7 @@
             
             <?php
                 connectDB();
+        
                 
             ?>
         </div>

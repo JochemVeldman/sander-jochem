@@ -21,3 +21,12 @@ b {
 }
 
 /** Hierboven wordt de navbaar aangepast **/
+
+#stelvraag_container {
+    width: 100%;
+}
+
+
+#vraag {
+    height: 100px;
+}
