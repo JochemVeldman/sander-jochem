@@ -2,6 +2,9 @@
     <head>
         <?php 
             include_once('functions/mainfunctions.php');
+            if(is_loggedin()){
+                header('Location: index.php');
+            }
             include_once('includes/links.php');
         ?>
     </head>

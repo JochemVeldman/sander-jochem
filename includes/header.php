@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand active" href="index.php"><b>Rarevragen.nl  <span class="sr-only">(current)</span></b></a>
+            <a class="navbar-brand active" href="index.php">Rarevragen.nl</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,16 +33,6 @@
                     </ul>
                     </li>
                 </ul>
-            <?php else : ?> <!-- if not logged in... -->
-                <form class="navbar-form navbar-right" style="padding: 0" method="POST" action="">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Gebruikersnaam/e-mail" id="login_gebruikersnaam" name="login_gebruikersnaam" style="width: auto;" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Wachtwoord" style="width: 120px" id="login_wachtwoord" name="login_wachtwoord" required>
-                    </div>
-                    <button type="submit" class="btn btn-success" name="loginButton">Login</button>
-                </form>
             <?php endif; ?>
             
             

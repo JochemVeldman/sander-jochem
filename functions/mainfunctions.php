@@ -55,6 +55,8 @@
     function is_loggedin(){
         if(isset($_SESSION['id'])){
             return true;
+        }else{
+            return false;
         }
     }
 
