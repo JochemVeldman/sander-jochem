@@ -1,4 +1,5 @@
 <?php
+    session_start(); //once for all the files
 
     function connectDB(){
         $servername = "localhost";
@@ -16,36 +17,28 @@
         }
     }
 
-
-    function register($email, $gebruikersnaam, $wachtwoord){
-        try{
-            $conn = connectDB();
-            $wachtwoord = password_hash($wachtwoord, PASSWORD_DEFAULT);
-            
-            $statement = $conn->prepare("INSERT INTO gebruikers(email, gebruikersnaam, wachtwoord, datum_aangemaakt)
-                VALUES(:email, :gebruikersnaam, :wachtwoord, :datum_aangemaakt)");
-            $statement->execute(array(
-                "email" => $email,
-                "gebruikersnaam" => $gebruikersnaam,
-                "wachtwoord" => $wachtwoord,
-                "datum_aangemaakt" => date("Y-m-d")
-            ));
-
-        }catch(PDOException $e){
-            echo $e->getMessage();
-        }
+    if(isset($_POST['loginButton'])){
+        $gebruikersnaam = test_input($_POST['login_gebruikersnaam']);
+        $wachtwoord = test_input($_POST['login_wachtwoord']);
         
+        if(strlen($gebruikersnaam) > 0 && strlen($gebruikersnaam) < 32 && strlen($wachtwoord) > 0 && strlen($wachtwoord) < 32){
+            login($gebruikersnaam, $wachtwoord);   
+        }
     }
 
-    function login($gebruikersnaam,$email,$wachtwoord){
+    function login($gebruikersnaam,$wachtwoord){
         try{
             $conn = connectDB();
-            $stmt = $conn->prepare("SELECT * FROM gebruikers WHERE gebruikersnaam=:gebruikersnaam OR email=:email LIMIT 1");
+            
+            $stmt = $conn->prepare("SELECT * FROM gebruikers WHERE gebruikersnaam=:gebruikersnaam OR email=:gebruikersnaam LIMIT 1");
             $stmt->execute(array(':gebruikersnaam'=>$gebruikersnaam, ':email'=>$email));
             $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+            
             if($stmt->rowCount() > 0){
                 if(password_verify($wachtwoord, $userRow['wachtwoord'])){
-                    $_SESSION['user_session'] = $userRow['id'];
+                    $_SESSION['id'] = $userRow['id'];
+                    $_SESSION['gebruikersnaam'] = $userRow['gebruikersnaam'];
+                    $_SESSION['email'] = $userRow['email'];
                     return true;
                 }
                 else{
@@ -65,14 +58,11 @@
         }
     }
 
-    function redirect($url){
-        header("Location: $url");
-    }
-
     function logout(){
         session_destroy();
         unset($_SESSION['id']);
-        return true;
+        header('Location: index.php');
+        die;
     }
 
     function test_input($data) {

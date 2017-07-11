@@ -26,8 +26,6 @@
                     $wachtwoord2 = test_input($_POST["wachtwoord2"]);
                         
                     register($email, $gebruikersnaam, $wachtwoord);
-                    
-                    echo 'Bedankt voor het registreren. Om uw account te activeren moet u op de link klikken in de e-mail die wij naar u verzonden hebben. Hierna kunt u inloggen.';
                 }else{
                     header('Location: registreren.php');
                 }

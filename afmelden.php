@@ -13,12 +13,7 @@
 
         <?php include_once("includes/header.php"); ?>
 
-        
-        <div class="container">
-            <div class="jumbotron">
-                <h1>Welkom op rarevragen.nl</h1>
-            </div>
-        </div>
+        <?php logout(); ?>
     </body>
 
 </html>
