@@ -47,7 +47,17 @@
                         </div>
                         <div class="form-group">
                             <label for="Categorie">Categorie:</label>
-                            <input type="text" class="form-control" id="categorie_vraag" name="categorie" onInput="check_categorie()">
+                            <input type="text" class="form-control" id="categorie_vraag" name="categorie" onInput="check_categorie()" list="suggestions">
+                            <datalist id="suggestions">
+                                <option value="Algemeen">
+                                <option value="Natuur">
+                                <option value="Technologie">
+                                <option value="Mens & samenleving">
+                                <option value="Pornografie">
+                                <option value="Humor">
+                                <option value="Sander">
+                                <option value="Tering">
+                            </datalist>
                         </div>        
                         <button type="submit" class="btn btn-default" id="submit_button" disabled>Plaats vraag</button>
                     </form>
