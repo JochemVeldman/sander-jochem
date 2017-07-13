@@ -59,7 +59,7 @@
                                 <option value="Tering">
                             </datalist>
                         </div>        
-                        <button type="submit" class="btn btn-default" id="submit_button" disabled>Plaats vraag</button>
+                        <button type="submit" class="btn btn-default" id="submit_button" name="submint_button" disabled>Plaats vraag</button>
                     </form>
                 </div>
             </div>
