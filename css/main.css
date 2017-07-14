@@ -36,6 +36,7 @@ li {
 
 #bg-success {
 	font-family: 'Montserrat', sans-serif;    
+<<<<<<< HEAD
 }
 
 .vraag_blok{
@@ -45,4 +46,6 @@ li {
     width: 100%;
     padding: 10px;
     margin-bottom: 5px;
+=======
+>>>>>>> master
 }
