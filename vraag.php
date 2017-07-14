@@ -1,7 +1,7 @@
 <html>
 
-    <head>
-        <?php 
+<head>
+    <?php 
             include_once('functions/mainfunctions.php');
             include_once('includes/links.php');
         
@@ -29,26 +29,32 @@
                echo $e->getMessage();
             }
         
-        ?> 
-    </head>
-    <body>
-        <?php include_once("includes/header.php"); ?>    
-        <div class="container">
-            <div class="jumbotron">
-                <h1><?php echo $row['vraag']; ?></h1>
-                <p><?php echo $row['opmerking']; ?></p>
+        ?>
+</head>
+
+<body>
+    <?php include_once("includes/header.php"); ?>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>
+                <?php echo $row['vraag']; ?>
+            </h1>
+            <p>
+                <?php echo $row['opmerking']; ?>
+            </p>
+        </div>
+
+        <div class="row" style="padding-right: 15px">
+            <div class="col-md-8" style="background-color: white;">
+                links
             </div>
-        
-            <div class="row" style="padding-right: 15px">
-                <div class="col-md-8" style="background-color: white;">
-                    links
-                </div>
-                <div class="col-md-4" style="background-color: #eee; padding: 20px;">
-                    Gevraagd door: <?php echo '<a href="gebruikers.php?id=3">'.$row['gebruikersnaam']. '</a><br>';?>
-                    <?php echo $row['bekeken']; ?> keer bekeken sinds 
-                </div>
+            <div class="col-md-4" style="background-color: #eee; padding: 20px;">
+                Gevraagd door:
+                <?php echo '<a href="gebruikers.php?id=3">'.$row['gebruikersnaam']. '</a><br>';?>
+                <?php echo $row['bekeken']; ?> keer bekeken sinds
             </div>
         </div>
-    </body>
+    </div>
+</body>
 
 </html>
