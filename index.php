@@ -53,7 +53,8 @@
                 <?php 
                     $stmt = $conn->prepare("SELECT * FROM vragen WHERE id_gebruiker =" . $_SESSION['id']);
                     $stmt->execute();
-                    echo $stmt->rowCount();
+                    $tekst = "Het aantal reacties is:" . $stmt->rowCount();
+                    echo '<p style="padding: 15px;">' . $tekst . '</p>';
                 
                 ?>
 
