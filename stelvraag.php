@@ -4,7 +4,7 @@
             include_once('functions/mainfunctions.php');
             
             if(!is_loggedin()){
-                header('Location: registreren.php');
+                header('Location: stelvraag_reg_log.php');
             }
         
             include_once('includes/links.php');
@@ -45,7 +45,6 @@
                         if ($melding == true){
                             echo '<p class="bg-success" style="padding: 15px; font-family: Montserrat; text-align: center; margin-bottom: 5px; border-radius: 3px">U vraag is met succes geplaatst.</p>';
                         }
-                    
                     ?>
                     <form method="POST" action="<?php echo htmlspecialchars('stelvraag.php');?>">
                         <div class="form-group">
