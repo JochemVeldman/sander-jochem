@@ -1,5 +1,4 @@
 <html>
-<!--goede versie -->
 <head>
     <?php 
             include_once('functions/mainfunctions.php');
