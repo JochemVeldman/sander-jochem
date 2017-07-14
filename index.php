@@ -54,6 +54,7 @@
                     $stmt = $conn->prepare("SELECT * FROM vragen WHERE id_gebruiker =" . $_SESSION['id']);
                     $stmt->execute();
                     echo $stmt->rowCount();
+                
                 ?>
 
             </div>
