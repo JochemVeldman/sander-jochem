@@ -48,20 +48,16 @@
 
                 <?php endif; ?>
             </div>
-        </div>
-        <div class="col-md-4" style="background-color: #eee; padding: 20px;">
-            <?php if(!isset($_SESSION['id'])) : ?>
-            <!-- if logged in... -->
-            <p><b>Inloggen of <a href="registreren.php">registreren</a></b></p>
-            <form method="POST" action="">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Gebruikersnaam/e-mail" id="login_gebruikersnaam" name="login_gebruikersnaam" required style="margin-top: 3px">
-                    <input type="password" class="form-control" placeholder="Wachtwoord" id="login_wachtwoord" name="login_wachtwoord" required style="margin-top: 3px">
-                    <button type="submit" class="btn btn-success" name="loginButton" style="margin-top: 3px">Login</button>
-                </div>
-            </form>
 
-            <?php endif; ?>
+            <div class="col-md-4" style="background-color: #eee; padding: 20px; margin-top: 20px;">
+                <?php 
+                    echo "hoi";
+                    $stmt = $conn->prepare("SELECT * FROM gebruikers WHERE gebruikersnaam=:gebruikersnaam OR email=:gebruikersnaam LIMIT 1");
+                    $stmt->execute(array(':gebruikersnaam'=>$gebruikersnaam, ':email'=>$email));
+                    $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+                ?>
+
+            </div>
         </div>
     </div>
 </body>
