@@ -26,7 +26,7 @@
                             $sql = 'SELECT * FROM vragen INNER JOIN gebruikers ON vragen.id_gebruiker = gebruikers.id';
                             
                             foreach ($conn->query($sql) as $row) {
-                                echo '<div class="vraag_blok"><a href="vraag.php?id='. $row['vraag_id'] .'">'. $row['vraag'] . '</a> door <span class="vraag_blok_gebruiker">'. $row['gebruikersnaam'] .'</span> </div>';
+                                echo '<div class="vraag_blok"><a href="vraag.php?id='. $row['vraag_id'] .'">'. $row['vraag'] . '</a> door <span class="vraag_blok_gebruiker"><a href="gebruikers.php?gebruikers_id='.$row['id_gebruiker'].'">'. $row['gebruikersnaam'] .'</a></span> </div>';
                             }
                         }
                         catch(PDOException $e){
