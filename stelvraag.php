@@ -78,11 +78,6 @@
     </div>
 
     <script>
-
-
-    </script>
-
-    <script>
         $('#titel_vraag').tooltip({
             'trigger': 'focus',
             'title': 'Een goede beknopte vraag vergroot de kans op een goed antwoord',
