@@ -30,6 +30,26 @@
             }
         
         ?>
+        <?php         
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button'])){
+                $reactie = test_input($_POST["plaats_reactie"]);
+                
+                $conn = connectDB();
+
+                $statement = $conn->prepare("INSERT INTO reacties(reactie, gebruiker_id, vraag_id, datum, tijdstip)
+                    VALUES(:reactie, :gebruiker_id, :vraag_id, :datum, :tijdstip");
+                $statement->execute(array(
+                    "reactie" => $reactie,
+                    "gebruiker_id" => $_SESSION['id'],
+                    "vraag_id" => $_GET['id'],
+                    "datum" => date("Y-m-d"),
+                    "tijdstip" => date("h:i:sa"),
+                ));
+                $melding = true;
+                
+            }
+        
+        ?>
 </head>
 
 <body>
@@ -45,24 +65,48 @@
         </div>
 
         <div class="row" style="padding-right: 15px">
-            <div class="col-md-8" style="background-color: white;">
-                <form method="POST" action="<?php echo htmlspecialchars('vraag.php');?>">
-                        <div class="form-group">
-                            <label for="Titel">Vraag:</label>
-                            <input type="text" class="form-control" id="titel_vraag" name="vraag" onInput="check_titel()">
-                        </div>
+            <div class="col-md-6" style="background-color: white;">
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <textarea placeholder="Plaats reactie" type="text" class="form-control" id="plaats_reactie" name="plaats_reactie" onInput="check_reactie()"></textarea>
+                    </div>
 
 
-                        <button type="submit" class="btn btn-default" id="submit_button" name="submit_button" disabled>Plaats vraag</button>
-                    </form>
+                    <button type="submit" class="btn btn-default" id="submit_button" name="submit_button" disabled>Plaats reactie</button>
+                </form>
             </div>
-            <div class="col-md-4" style="background-color: #eee; padding: 20px;">
+            <div class="col-md-4 col-md-offset-2" style="background-color: #eee; padding: 20px;">
                 Gevraagd door:
                 <?php echo '<a href="gebruikers.php?id=3">'.$row['gebruikersnaam']. '</a><br>';?>
-                <?php echo $row['bekeken']; ?> keer bekeken sinds <?php echo $row['datum']; ?>
+                <?php echo $row['bekeken']; ?> keer bekeken sinds
+                <?php echo $row['datum']; ?>
             </div>
         </div>
     </div>
+    <script>
+        var reactieOK = false;
+
+        function enable_button() {
+            if (reactieOK == true) {
+                document.getElementById("submit_button").disabled = false;
+            } else {
+                document.getElementById("submit_button").disabled = true;
+            }
+        }
+
+        function check_reactie() {
+            var reactie = document.getElementById("plaats_reactie").value;
+            if (reactie.length > 0) {
+                document.getElementById("plaats_reactie").style.borderColor = "#ccc";
+                reactieOK = true;
+            } else {
+                document.getElementById("plaats_reactie").style.borderColor = "red";
+                reactieOK = false;
+            }
+            enable_button()
+        }
+
+    </script>
 </body>
 
 </html>
