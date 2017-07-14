@@ -1,6 +1,7 @@
 <html>
-    <head>
-        <?php 
+
+<head>
+    <?php 
             include_once('functions/mainfunctions.php');
             
             if(!is_loggedin()){
@@ -9,10 +10,11 @@
         
             include_once('includes/links.php');
         ?>
-        
-    </head>
-    <body>
-        <?php 
+
+</head>
+
+<body>
+    <?php 
             include_once("includes/header.php"); 
         
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button'])){
@@ -37,11 +39,11 @@
             }
         
         ?>
-        
-        <div class="container">
-            <div class="col-md-8 col-md-offset-2">
-                <div id="stelvraag_container">
-                    <?php
+
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2">
+            <div id="stelvraag_container">
+                <?php
                         if ($melding == true){
                             echo '<p class="bg-success" style="padding: 15px; font-family: Montserrat; text-align: center; margin-bottom: 5px; border-radius: 3px">U vraag is met succes geplaatst.</p>';
                         }
@@ -68,53 +70,63 @@
                                 <option value="Sander">
                                 <option value="Tering">
                             </datalist>
-                        </div>        
+                        </div>
                         <button type="submit" class="btn btn-default" id="submit_button" name="submit_button" disabled>Plaats vraag</button>
                     </form>
-                </div>
             </div>
         </div>
-        
-        <script>
+    </div>
 
-        </script>
-        
-        <script>
-            $('#titel_vraag').tooltip({'trigger':'focus', 'title': 'Een goede beknopte vraag vergroot de kans op een goed antwoord', 'placement' : 'left'});
-            $('#vraag').tooltip({'trigger':'focus', 'title': 'Een opmerking is optioneel maar ondersteunt de vraag zodat ander zodat andere gebruikers deze beter kunnen beantwoorden', 'placement' : 'left'});
-            $('#categorie_vraag').tooltip({'trigger':'focus', 'title': 'Een categorie toevoegen is optioneel maar met een categorie zullen meer mensen je vraag bekijken', 'placement' : 'left'});
-            
-            
-            var titelOK = false;
-            
-            function enable_button(){
-                if(titelOK == true){
-                    document.getElementById("submit_button").disabled = false;
-                }else{
-                    document.getElementById("submit_button").disabled = true;   
-                }
-            }    
-            
-            function check_titel(){
-                var titel = document.getElementById("titel_vraag").value;
-                if(titel.length > 5){
-                    document.getElementById("titel_vraag").style.borderColor = "#ccc";
-                    titelOK = true;
-                }else{
-                    document.getElementById("titel_vraag").style.borderColor = "red";
-                    titelOK = false;
-                }
-                enable_button()
+    <script>
+
+
+    </script>
+
+    <script>
+        $('#titel_vraag').tooltip({
+            'trigger': 'focus',
+            'title': 'Een goede beknopte vraag vergroot de kans op een goed antwoord',
+            'placement': 'left'
+        });
+        $('#vraag').tooltip({
+            'trigger': 'focus',
+            'title': 'Een opmerking is optioneel maar ondersteunt de vraag zodat ander zodat andere gebruikers deze beter kunnen beantwoorden',
+            'placement': 'left'
+        });
+        $('#categorie_vraag').tooltip({
+            'trigger': 'focus',
+            'title': 'Een categorie toevoegen is optioneel maar met een categorie zullen meer mensen je vraag bekijken',
+            'placement': 'left'
+        });
+
+
+        var titelOK = false;
+
+        function enable_button() {
+            if (titelOK == true) {
+                document.getElementById("submit_button").disabled = false;
+            } else {
+                document.getElementById("submit_button").disabled = true;
             }
-            
-            
-            
-            
-        </script>
-        
-        
-        
-        
-    </body>
-</html>
+        }
 
+        function check_titel() {
+            var titel = document.getElementById("titel_vraag").value;
+            if (titel.length > 5) {
+                document.getElementById("titel_vraag").style.borderColor = "#ccc";
+                titelOK = true;
+            } else {
+                document.getElementById("titel_vraag").style.borderColor = "red";
+                titelOK = false;
+            }
+            enable_button()
+        }
+
+    </script>
+
+
+
+
+</body>
+
+</html>
