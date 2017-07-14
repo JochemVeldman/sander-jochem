@@ -34,11 +34,6 @@ li {
     height: 100px;
 }
 
-#bg-success {
-	font-family: 'Montserrat', sans-serif;    
-<<<<<<< HEAD
-}
-
 .vraag_blok{
     min-height: 50px;
     background-color: #eee;
@@ -46,6 +41,4 @@ li {
     width: 100%;
     padding: 10px;
     margin-bottom: 5px;
-=======
->>>>>>> master
 }
