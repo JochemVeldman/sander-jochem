@@ -20,10 +20,10 @@
                     
                         try{
                             $conn = connectDB();          
-                            $sql = 'SELECT * FROM vragen INNER JOIN gebruikers ON vragen.id_gebruiker = gebruikers.id';
+                            $sql = 'SELECT * FROM vragen INNER JOIN gebruikers ON vragen.id_gebruiker = gebruikers.id ORDER BY id';
                             
                             foreach ($conn->query($sql) as $row) {
-                                echo '<div class="vraag_blok"><a href="vraag.php?id='. $row['vraag_id'] .'">'. $row['vraag'] . '</a><span class="vraag_blok_gebruiker"> door <a href="gebruikers.php?gebruikers_id='.$row['id_gebruiker'].'">'. $row['gebruikersnaam'] .'</a><br>'.$row['bekeken'].' keer bekeken</span></div>';
+                                echo '<div class="vraag_blok"><a href="vraag.php?id='. $row['vraag_id'] .'">'. $row['vraag'] . '</a><span class="vraag_blok_gebruiker"> door <a href="gebruikers.php?gebruikers_id='.$row['id_gebruiker'].'">'. $row['gebruikersnaam'] .'</a><br>'.$row['bekeken'].' keer bekeken sinds '. $row['datum'] .', '. $row['tijdstip'] .'</span></div>';
                             }
                         }
                         catch(PDOException $e){
@@ -54,6 +54,7 @@
                     $stmt = $conn->prepare("SELECT * FROM vragen WHERE id_gebruiker =" . $_SESSION['id']);
                     $stmt->execute();
                     echo $stmt->rowCount();
+                
                 ?>
 
             </div>
