@@ -35,7 +35,7 @@
 
             </div>
             <div class="col-md-4" style="background-color: #eee; padding: 20px;">
-                <?php if(!isset($_SESSION['id'])) : ?>
+                <?php if(!isset($_SESSION['id'])): ?>
                 <!-- if logged in... -->
                 <p><b>Inloggen of <a href="registreren.php">registreren</a></b></p>
                 <form method="POST" action="">
@@ -45,22 +45,20 @@
                         <button type="submit" class="btn btn-success" name="loginButton" style="margin-top: 3px">Login</button>
                     </div>
                 </form>
-
+                
                 <?php endif; ?>
-            </div>
-
-            <div class="col-md-4" style="background-color: #eee; padding: 20px; margin-top: 20px;">
+                
                 <?php 
                     $stmt = $conn->prepare("SELECT * FROM vragen WHERE id_gebruiker =" . $_SESSION['id']);
                     $stmt->execute();
-                    $tekst = "Het aantal reacties is:" . $stmt->rowCount();
-                    echo '<p style="padding: 15px;">' . $tekst . '</p>';
+                    $tekst = "Jouw aantal gestelde vragen: " . $stmt->rowCount();
+                    echo '<p style="font-family: Montserrat;">' . $tekst . '</p>';
                 
                 ?>
+            </div>
 
             </div>
         </div>
-    </div>
 </body>
 
 </html>
