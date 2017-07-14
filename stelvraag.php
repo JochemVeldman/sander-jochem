@@ -2,9 +2,11 @@
     <head>
         <?php 
             include_once('functions/mainfunctions.php');
-        ?>
+            
+            if(!is_loggedin()){
+                header('Location: registreren.php');
+            }
         
-        <?php 
             include_once('includes/links.php');
         ?>
         
@@ -14,21 +16,24 @@
             include_once("includes/header.php"); 
         
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button'])){
-                $titel = test_input($_POST["titel"]);
                 $vraag = test_input($_POST["vraag"]);
+                $opmerking = test_input($_POST["opmerking"]);
                 $categorie = test_input($_POST["categorie"]);
                 
                 $conn = connectDB();
 
-                $statement = $conn->prepare("INSERT INTO vragen(titel, vraag, categorie, datum)
-                    VALUES(:titel, :vraag, :categorie, :datum)");
+                $statement = $conn->prepare("INSERT INTO vragen(vraag, opmerking, categorie, datum, tijdstip, id_gebruiker)
+                    VALUES(:vraag, :opmerking, :categorie, :datum, :tijdstip, :id_gebruiker)");
                 $statement->execute(array(
-                    "titel" => $titel,
                     "vraag" => $vraag,
+                    "opmerking" => $opmerking,
                     "categorie" => $categorie,
-                    "datum" => date("Y-m-d")
+                    "datum" => date("Y-m-d"),
+                    "tijdstip" => date("h:i:sa"),
+                    "id_gebruiker" => $_SESSION['id']
                 ));
-
+                $melding = true;
+                
             }
         
         ?>
@@ -36,18 +41,24 @@
         <div class="container">
             <div class="col-md-8 col-md-offset-2">
                 <div id="stelvraag_container">
-                    <form method="POST" action="<?php echo htmlspecialchars('registreren_voltooien.php');?>">
+                    <?php
+                        if ($melding == true){
+                            echo '<p class="bg-success" style="padding: 5px; text-allign: center; margin-bottom: 5px; border-radius: 3px">U vraag is met succes geplaatst.</p>';
+                        }
+                    
+                    ?>
+                    <form method="POST" action="<?php echo htmlspecialchars('stelvraag.php');?>">
                         <div class="form-group">
-                            <label for="Titel">Titel:</label>
-                            <input type="text" class="form-control" id="titel_vraag" name="titel" onInput="check_titel()">
+                            <label for="Titel">Vraag:</label>
+                            <input type="text" class="form-control" id="titel_vraag" name="vraag" onInput="check_titel()">
                         </div>
                         <div class="form-group">
-                            <label for="Vraag">Vraag:</label>
-                            <textarea type="text" class="form-control" id="vraag" name="vraag" onInput="check_vraag()"></textarea>
+                            <label for="Vraag">Opmerking:</label>
+                            <textarea type="text" class="form-control" id="vraag" name="opmerking"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="Categorie">Categorie:</label>
-                            <input type="text" class="form-control" id="categorie_vraag" name="categorie" onInput="check_categorie()" list="suggestions">
+                            <input type="text" class="form-control" id="categorie_vraag" name="categorie" list="suggestions">
                             <datalist id="suggestions">
                                 <option value="Algemeen">
                                 <option value="Natuur">
@@ -59,7 +70,7 @@
                                 <option value="Tering">
                             </datalist>
                         </div>        
-                        <button type="submit" class="btn btn-default" id="submit_button" name="submint_button" disabled>Plaats vraag</button>
+                        <button type="submit" class="btn btn-default" id="submit_button" name="submit_button" disabled>Plaats vraag</button>
                     </form>
                 </div>
             </div>
@@ -70,18 +81,18 @@
         </script>
         
         <script>
-            $('#titel_vraag').tooltip({'trigger':'focus', 'title': 'Een goede titel vergroot de kans op een goed antwoord', 'placement' : 'left'});
-            $('#vraag').tooltip({'trigger':'focus', 'title': 'Een beknopte vraagt zorgt ervoor dat iedereen sneller jou vraag begrijpt', 'placement' : 'left'});
-            $('#categorie_vraag').tooltip({'trigger':'focus', 'title': 'Met een goede categorie zullen meer mensen je vraag bekijken', 'placement' : 'left'});
+            $('#titel_vraag').tooltip({'trigger':'focus', 'title': 'Een goede beknopte vraag vergroot de kans op een goed antwoord', 'placement' : 'left'});
+            $('#vraag').tooltip({'trigger':'focus', 'title': 'Een opmerking is optioneel maar ondersteunt de vraag zodat ander zodat andere gebruikers deze beter kunnen beantwoorden', 'placement' : 'left'});
+            $('#categorie_vraag').tooltip({'trigger':'focus', 'title': 'Een categorie toevoegen is optioneel maar met een categorie zullen meer mensen je vraag bekijken', 'placement' : 'left'});
             
             
             var titelOK = false;
-            var vraagOK = false;
-            var categorieOK = false;
             
             function enable_button(){
-                if(titelOK == true && vraagOK == true && categorieOK == true){
+                if(titelOK == true){
                     document.getElementById("submit_button").disabled = false;
+                }else{
+                    document.getElementById("submit_button").disabled = true;   
                 }
             }    
             
@@ -91,32 +102,12 @@
                     document.getElementById("titel_vraag").style.borderColor = "#ccc";
                     titelOK = true;
                 }else{
-                    document.getElementById("titel_vraag").style.borderColor = "red"
+                    document.getElementById("titel_vraag").style.borderColor = "red";
+                    titelOK = false;
                 }
                 enable_button()
             }
             
-            function check_vraag(){
-                var titel = document.getElementById("vraag").value;
-                if(titel.length > 5){
-                    document.getElementById("vraag").style.borderColor = "#ccc";
-                    vraagOK = true;
-                }else{
-                    document.getElementById("vraag").style.borderColor = "red"
-                }
-                enable_button()
-            }
-            
-            function check_categorie(){
-                var titel = document.getElementById("categorie_vraag").value;
-                if(titel.length > 5){
-                    document.getElementById("categorie_vraag").style.borderColor = "#ccc";
-                    categorieOK = true;
-                }else{
-                    document.getElementById("categorie_vraag").style.borderColor = "red"
-                }
-                enable_button()
-            }
             
             
             
