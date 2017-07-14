@@ -25,7 +25,7 @@
                 $statement = $conn->prepare("INSERT INTO vragen(vraag, opmerking, categorie, datum, tijdstip, id_gebruiker)
                     VALUES(:vraag, :opmerking, :categorie, :datum, :tijdstip, :id_gebruiker)");
                 $statement->execute(array(
-                    "vraag" => $vraag,
+                    "vraag" => ucfirst($vraag),
                     "opmerking" => $opmerking,
                     "categorie" => $categorie,
                     "datum" => date("Y-m-d"),
@@ -43,7 +43,7 @@
                 <div id="stelvraag_container">
                     <?php
                         if ($melding == true){
-                            echo '<p class="bg-success" style="padding: 5px; text-allign: center; margin-bottom: 5px; border-radius: 3px">U vraag is met succes geplaatst.</p>';
+                            echo '<p class="bg-success" style="padding: 15px; font-family: Montserrat; text-align: center; margin-bottom: 5px; border-radius: 3px">U vraag is met succes geplaatst.</p>';
                         }
                     
                     ?>
