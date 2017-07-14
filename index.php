@@ -12,10 +12,6 @@
             <div class="jumbotron">
                 <h1>Welkom op rarevragen.nl</h1>
             </div>
-            
-            <?php
-                connectDB();
-           ?>
         
             <div class="row" style="padding-right: 15px">
                 <div class="col-md-8" style="background-color: white;">
@@ -26,7 +22,7 @@
                             $sql = 'SELECT * FROM vragen INNER JOIN gebruikers ON vragen.id_gebruiker = gebruikers.id';
                             
                             foreach ($conn->query($sql) as $row) {
-                                echo '<div class="vraag_blok"><a href="vraag.php?id='. $row['vraag_id'] .'">'. $row['vraag'] . '</a> door <span class="vraag_blok_gebruiker"><a href="gebruikers.php?gebruikers_id='.$row['id_gebruiker'].'">'. $row['gebruikersnaam'] .'</a></span> </div>';
+                                echo '<div class="vraag_blok"><a href="vraag.php?id='. $row['vraag_id'] .'">'. $row['vraag'] . '</a><span class="vraag_blok_gebruiker"> door <a href="gebruikers.php?gebruikers_id='.$row['id_gebruiker'].'">'. $row['gebruikersnaam'] .'</a><br>25 keer bekeken</span></div>';
                             }
                         }
                         catch(PDOException $e){
