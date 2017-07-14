@@ -17,9 +17,25 @@
                 connectDB();
            ?>
         
-            <div class="row" style="padding-left: 15px; padding-right: 15px">
-                <div class="col-md-8">
-                
+            <div class="row" style="padding-right: 15px">
+                <div class="col-md-8" style="background-color: white;">
+                    <?php
+                    
+                        try{
+                            $conn = connectDB();          
+                            $sql = 'SELECT * FROM vragen INNER JOIN gebruikers ON vragen.id_gebruiker = gebruikers.id';
+                            
+                            foreach ($conn->query($sql) as $row) {
+                                echo '<div class="vraag_blok"><a href="vraag.php?id='. $row['vraag_id'] .'">'. $row['vraag'] . '</a> door <span class="vraag_blok_gebruiker">'. $row['gebruikersnaam'] .'</span> </div>';
+                            }
+                        }
+                        catch(PDOException $e){
+                            echo $e->getMessage();
+                        }
+                    
+                    ?>
+                    
+                    
                 </div>
                 <div class="col-md-4" style="background-color: #eee; padding: 20px;">
                     <?php if(!isset($_SESSION['id'])) : ?> <!-- if logged in... -->

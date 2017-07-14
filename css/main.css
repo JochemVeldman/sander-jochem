@@ -16,7 +16,7 @@ li {
 
 #naam_navbar {
     font-size: 25px;
-	font-family: 'Montserrat', serif;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .navbar-header {
@@ -32,4 +32,13 @@ li {
 
 #vraag {
     height: 100px;
+}
+
+.vraag_blok{
+    min-height: 50px;
+    background-color: #eee;
+    color: black;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
 }
