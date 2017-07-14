@@ -51,10 +51,9 @@
 
             <div class="col-md-4" style="background-color: #eee; padding: 20px; margin-top: 20px;">
                 <?php 
-                    echo "hoi";
-                    $stmt = $conn->prepare("SELECT * FROM gebruikers WHERE gebruikersnaam=:gebruikersnaam OR email=:gebruikersnaam LIMIT 1");
-                    $stmt->execute(array(':gebruikersnaam'=>$gebruikersnaam, ':email'=>$email));
-                    $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+                    $stmt = $conn->prepare("SELECT * FROM vragen WHERE id_gebruiker =" . $_SESSION['id']);
+                    $stmt->execute();
+                    echo $stmt->rowCount();
                 ?>
 
             </div>
