@@ -29,24 +29,24 @@
                echo $e->getMessage();
             }
         
+            $conn = null;
         ?>
-        <?php         
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button'])){
-                $reactie = test_input($_POST["plaats_reactie"]);
+        <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_reactie'])){
                 
                 $conn = connectDB();
 
                 $statement = $conn->prepare("INSERT INTO reacties(reactie, gebruiker_id, vraag_id, datum, tijdstip)
-                    VALUES(:reactie, :gebruiker_id, :vraag_id, :datum, :tijdstip");
+                    VALUES(:reactie, :gebruiker_id, :vraag_id, :datum, :tijdstip)");
+                
                 $statement->execute(array(
-                    "reactie" => $reactie,
+                    "reactie" => test_input($_POST["plaats_reactie"]),
                     "gebruiker_id" => $_SESSION['id'],
                     "vraag_id" => $_GET['id'],
                     "datum" => date("Y-m-d"),
-                    "tijdstip" => date("h:i:sa"),
+                    "tijdstip" => date("h:i:sa")
                 ));
                 $melding = true;
-                
             }
         
         ?>
@@ -66,14 +66,32 @@
 
         <div class="row" style="padding-right: 15px">
             <div class="col-md-6" style="background-color: white;">
+                    <?php
+                        if ($melding == true){
+                            echo '<p class="bg-success" style="padding: 15px; font-family: Montserrat; text-align: center; margin-bottom: 15px; border-radius: 3px">U reactie is met succes geplaatst.</p>';
+                        }
+                    ?>
                 <form method="POST" action="">
                     <div class="form-group">
                         <textarea placeholder="Plaats reactie" type="text" class="form-control" id="plaats_reactie" name="plaats_reactie" onInput="check_reactie()"></textarea>
                     </div>
-
-
-                    <button type="submit" class="btn btn-default" id="submit_button" name="submit_button" disabled>Plaats reactie</button>
+                    <button type="submit" class="btn btn-default" id="submit_reactie" name="submit_reactie" disabled>Plaats reactie</button>
                 </form>
+                <br>
+                <?php
+                    try{
+                        $conn = connectDB();          
+                        $sql = 'SELECT * FROM reacties INNER JOIN gebruikers ON reacties.gebruiker_id = gebruikers.id WHERE vraag_id =' . $_GET['id'] . ' ORDER BY reacties.reactie_id DESC';
+                
+                        foreach ($conn->query($sql) as $row) {
+                            echo '<div class="vraag_blok"><p style= "font-family: Montserrat;">' . $row['reactie'] . '</p></div>';
+                        }
+                    }
+                    catch(PDOException $e){
+                        echo $e->getMessage();
+                    }
+
+                ?>
             </div>
             <div class="col-md-4 col-md-offset-2" style="background-color: #eee; padding: 20px;">
                 Gevraagd door:
@@ -88,9 +106,9 @@
 
         function enable_button() {
             if (reactieOK == true) {
-                document.getElementById("submit_button").disabled = false;
+                document.getElementById("submit_reactie").disabled = false;
             } else {
-                document.getElementById("submit_button").disabled = true;
+                document.getElementById("submit_reactie").disabled = true;
             }
         }
 
