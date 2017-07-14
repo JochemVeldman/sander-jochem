@@ -28,6 +28,7 @@
             {
                echo $e->getMessage();
             }
+        
         ?> 
     </head>
     <body>
@@ -43,7 +44,8 @@
                     links
                 </div>
                 <div class="col-md-4" style="background-color: #eee; padding: 20px;">
-                    Gevraagd door: <?php echo '<a href="gebruikers.php?id=3">'.$row['gebruikersnaam']. '</a>';?>
+                    Gevraagd door: <?php echo '<a href="gebruikers.php?id=3">'.$row['gebruikersnaam']. '</a><br>';?>
+                    <?php echo $row['bekeken']; ?> keer bekeken sinds 
                 </div>
             </div>
         </div>
