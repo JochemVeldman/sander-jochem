@@ -45,7 +45,7 @@
             <div id="stelvraag_container">
                 <?php
                         if ($melding == true){
-                            echo '<p class="bg-success" style="padding: 15px; font-family: Montserrat; text-align: center; margin-bottom: 5px; border-radius: 3px">U vraag is met succes geplaatst.</p>';
+                            echo '<p class="bg-success" style="padding: 15px; font-family: Montserrat; text-align: center; margin-bottom: 5px; border-radius: 3px">Uw vraag is met succes geplaatst.</p>';
                         }
                     ?>
                     <form method="POST" action="<?php echo htmlspecialchars('stelvraag.php');?>">
