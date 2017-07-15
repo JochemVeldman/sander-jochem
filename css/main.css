@@ -42,12 +42,3 @@ li {
 .vraag_blok_gebruiker{
     font-size: 11px;
 }
-
-#vraag_blok{
-    min-height: 50px;
-    background-color: #eee;
-    color: black;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 8px;
-}

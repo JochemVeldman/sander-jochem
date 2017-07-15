@@ -105,7 +105,7 @@
                         $sql = 'SELECT * FROM reacties INNER JOIN gebruikers ON reacties.gebruiker_id = gebruikers.id WHERE vraag_id =' . $_GET['id'] . ' ORDER BY reacties.reactie_id DESC';
                 
                         foreach ($conn->query($sql) as $row) {
-                            echo '<div class="col-md-5" id="vraag_blok><p style= "font-family: Montserrat;">' . $row['reactie'] . '</p></div>';
+                            echo '<div class="vraag_blok"><p style= "font-family: Montserrat;">' . $row['reactie'] . '</p></div>';
                         }
                     }
                     catch(PDOException $e){
