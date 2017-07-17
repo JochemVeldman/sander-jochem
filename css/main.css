@@ -50,7 +50,9 @@ li {
 }
 
 .reactie_blok{
-    background-color: green;
+    background-color: #eee;
+    padding-top: 10px;
+    padding-left: 8px;
 }
 
 .stylish-input-group .input-group-addon{
