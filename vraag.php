@@ -66,7 +66,7 @@
             </p>
         </div>
 
-        <div class="row" style="padding-right: 15px">
+        <div class="row">
             <div class="col-md-8" style="background-color: white;">
                 <?php
                         if ($melding == true){
@@ -76,11 +76,12 @@
 
                         <form method="POST" action="">
                             <div class="form-group">
-                                <textarea placeholder="Plaats reactie" type="text" class="form-control" id="plaats_reactie" name="plaats_reactie" onInput="check_reactie()"></textarea>
+                                <textarea placeholder="Plaats reactie" type="text" class="form-control" style="height: 80px;" id="plaats_reactie" name="plaats_reactie" onInput="check_reactie()"></textarea>
                             </div>
                             <button type="submit" class="btn btn-default" id="submit_reactie" name="submit_reactie" disabled>Plaats reactie</button>
                         </form>
                         <br>
+                       
                 
                     <?php
                     try{
@@ -97,6 +98,7 @@
 
                 ?>
             </div>
+            
         </div>
     </div>
     <script>
