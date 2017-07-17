@@ -71,6 +71,9 @@
                                 <option value="Tering">
                             </datalist>
                         </div>
+                        <div class="checkbox" style="font-family: Montserrat; margin-bottom: 15px;">
+                            <label><input type="checkbox" id="checkboxstelvraag" value="" name="checkboxstelvraag">Ik ben tevreden met mijn vraag en plaats hem graag op de website*.</label>
+                        </div>
                         <button type="submit" class="btn btn-default" id="submit_button" name="submit_button" disabled>Plaats vraag</button>
                     </form>
             </div>
@@ -94,11 +97,14 @@
             'placement': 'left'
         });
 
-
         var titelOK = false;
+        
+        $('#checkboxstelvraag').click(function() {
+            check_titel();
+        });
 
         function enable_button() {
-            if (titelOK == true) {
+            if (titelOK == true && document.getElementById("checkboxstelvraag").checked) {
                 document.getElementById("submit_button").disabled = false;
             } else {
                 document.getElementById("submit_button").disabled = true;
