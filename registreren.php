@@ -66,7 +66,7 @@
                         ));
 
                         $values = array(); // empty values array
-                        $melding = '<p class="bg-success" style="padding: 5px; margin-bottom: 5px; border-radius: 3px">Bedankt voor het registreren. U kunt nu inloggen. </p>';
+                        $melding = '<p class="bg-success" style="padding: 5px; margin-bottom: 5px; border-radius: 3px; font-family: Montserrat;">Bedankt voor het registreren. U kunt nu inloggen. </p>';
                     }
                 }catch(PDOException $e){
                     echo $e->getMessage();

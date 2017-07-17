@@ -71,6 +71,9 @@
                                 <option value="Tering">
                             </datalist>
                         </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">Ik ben tevreden met mijn vraag en plaats hem graag op de website.</label>
+                        </div>
                         <button type="submit" class="btn btn-default" id="submit_button" name="submit_button" disabled>Plaats vraag</button>
                     </form>
             </div>
