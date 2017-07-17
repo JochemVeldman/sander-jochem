@@ -57,15 +57,34 @@
 <body>
     <?php include_once("includes/header.php"); ?>
     <div class="container">
-        <div class="jumbotron">
-            <h1>
-                <?php echo $row['vraag']; ?>
-            </h1>
-            <p>
-                <?php echo $row['opmerking']; ?>
-            </p>
+        <div class="jumbotron" style="padding: 20px">
+            <div class="row">
+                <div class="col-md-2">
+                    <div style="height: 200px; width: 120px">
+                        <div style="height: 120px; width: 100%; background-color: white; border: 1px solid #D9D9D9; padding: 2px">
+                            <img src="images/default.png" style="height: 100%; width: 100%">
+                        </div>
+                        <div style="width: 100%; height: 80px; padding: 5px">
+                            <?php echo '<a href="gebruikers.php?gebruikers_id='.$row['id_gebruiker'].'">' . $row['gebruikersnaam'] . '</a>';?>
+                            <br>
+                            <?php      
+                                echo 'Posts: ' . gebruikers_posts($row['id_gebruiker']);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h2>
+                        <?php echo $row['vraag']; ?>
+                    </h2>
+                    <br>
+                    <?php echo $row['opmerking']; ?>
+                    <hr style="border-top: 1px solid #D9D9D9;">
+                    <span style="font-size: 12px; color: #696969">Geplaatst op: <?php echo $row['datum'] . ', ' . $row['tijdstip'] . '. Sindsdien '.$row['bekeken'] . ' keer bekeken.'; ?></span>
+                </div>
+            </div>
         </div>
-
+        <hr>
         <div class="row">
             <div class="col-md-8" style="background-color: white;">
                 <?php

@@ -52,6 +52,15 @@
        }
     }
 
+    function gebruikers_posts($id){
+        $conn = connectDB();
+        $stmt = $conn->prepare("SELECT * FROM vragen WHERE id_gebruiker =" . $id);
+        $stmt->execute();
+        $vragen = $stmt->rowCount();
+        return $vragen;
+
+    }
+
     function is_loggedin(){
         if(isset($_SESSION['id'])){
             return true;
