@@ -31,7 +31,7 @@
                     "opmerking" => $opmerking,
                     "categorie" => $categorie,
                     "datum" => date("Y-m-d"),
-                    "tijdstip" => date("h:i:sa"),
+                    "tijdstip" => date("H:i:sa"),
                     "id_gebruiker" => $_SESSION['id']
                 ));
                 $melding = true;

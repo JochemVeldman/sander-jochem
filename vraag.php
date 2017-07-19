@@ -46,7 +46,7 @@
                     "gebruiker_id" => $_SESSION['id'],
                     "vraag_id" => $_GET['id'],
                     "datum" => date("Y-m-d"),
-                    "tijdstip" => date("h:i:sa")
+                    "tijdstip" => date("H:i:sa")
                 ));
                 $melding = true;
             }
@@ -108,7 +108,7 @@
                         $sql = 'SELECT * FROM reacties INNER JOIN gebruikers ON reacties.gebruiker_id = gebruikers.id WHERE vraag_id =' . $_GET['id'] . ' ORDER BY reacties.reactie_id DESC';
                 
                         foreach ($conn->query($sql) as $row) {
-                            echo '<div class="reactie_blok"><p style= "font-family: Montserrat; font-size: 14px;">' . $row['reactie'] . '</p>' . '<p style="font-family: Montserrat; font-size: 12px; padding-bottom: 7px;">' . $row['gebruikersnaam'] . '</p>' . '</div>';
+                            echo '<div class="reactie_blok"><p style= "font-family: Montserrat; font-size: 14px;">' . $row['reactie'] . '</p>' . '<p style="font-family: Montserrat; font-size: 12px; padding-bottom: 7px;">' . $row['gebruikersnaam'] . ' ' . $row['datum'] . ' ' . $row['tijdstip'] . '</p>' . '</div>';
                         }
                     }
                     catch(PDOException $e){
