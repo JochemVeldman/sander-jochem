@@ -84,6 +84,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="col-md-5" style="background-color: #eee; margin: 10px;" id="plus" value="1" name="omhoog">
+                <p>omhoog</p>
+            </div>
+            <div class="col-md-5" style="background-color: #eee; margin: 10px;" id="plus" value="-1" name="omlaag">
+                <p>omlaag</p>
+            </div>
+
+        </div>
         <hr>
         <div class="row">
             <div class="col-md-8" style="background-color: white;">
@@ -93,15 +102,15 @@
                         }
                     ?>
 
-                        <form method="POST" action="">
-                            <div class="form-group">
-                                <textarea placeholder="Plaats reactie" type="text" class="form-control" style="height: 80px;" id="plaats_reactie" name="plaats_reactie" onInput="check_reactie()"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-default" id="submit_reactie" name="submit_reactie" disabled>Plaats reactie</button>
-                        </form>
-                        <br>
-                       
-                
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            <textarea placeholder="Plaats reactie" type="text" class="form-control" style="height: 80px;" id="plaats_reactie" name="plaats_reactie" onInput="check_reactie()"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-default" id="submit_reactie" name="submit_reactie" disabled>Plaats reactie</button>
+                    </form>
+                    <br>
+
+
                     <?php
                     try{
                         $conn = connectDB();          
@@ -117,7 +126,7 @@
 
                 ?>
             </div>
-            
+
         </div>
     </div>
     <script>
