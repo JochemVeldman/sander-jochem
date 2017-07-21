@@ -52,6 +52,39 @@
             }
         
         ?>
+        <?php
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omhoog'])){                   $conn = connectDB();
+
+                $score = 1;                    
+                    
+                $statement = $conn->prepare("INSERT INTO likes_vragen(vraag_id, gebruiker_id, waardering)
+                    VALUES(:vraag_id, :gebruiker_id, :waardering)");
+                    
+                $statement->execute(array(
+                    "vraag_id" => $_GET['id'],
+                    "gebruiker_id" => $_SESSION['id'],
+                    "waardering" => $score
+                ));
+            }
+        ?>
+
+            <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omlaag'])){
+        $conn = connectDB();
+        $score = 0;
+
+        $statement = $conn->prepare("INSERT INTO likes_vragen(vraag_id, gebruiker_id, waardering)
+            VALUES(:vraag_id, :gebruiker_id,  :waardering)");
+
+        $statement->execute(array(
+            "vraag_id" => $_GET['id'],
+            "gebruiker_id" => $_SESSION['id'],
+            "waardering" => $score
+        ));
+    } 
+
+        ?>
+
 </head>
 
 <body>
@@ -84,15 +117,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="col-md-5" style="background-color: #eee; margin: 10px;" id="plus" value="1" name="omhoog">
-                <p>omhoog</p>
-            </div>
-            <div class="col-md-5" style="background-color: #eee; margin: 10px;" id="plus" value="-1" name="omlaag">
-                <p>omlaag</p>
-            </div>
 
-        </div>
+        <form method="POST" action="">
+            <button type="submit" class="btn btn-default" id="submit_waardering" name="submit_omlaag">Omlaag</button>
+            <button type="submit" class="btn btn-default" id="submit_waardering" name="submit_omhoog">Omhoog</button>
+        </form>
+
         <hr>
         <div class="row">
             <div class="col-md-8" style="background-color: white;">
