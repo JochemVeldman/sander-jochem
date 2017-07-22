@@ -47,9 +47,15 @@
 
                     if($stmt->rowCount() > 0){
                         $conn = connectDB();
+<<<<<<< HEAD
                         $stmt = "UPDATE likes_vragen SET waardering='1' WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id";
                         $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
                     
+=======
+                        $stmt = "UPDATE likes_vragen SET waardering='1' WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");;
+                        $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
+
+>>>>>>> master
                     }else{
                         $score = 1;                    
 
