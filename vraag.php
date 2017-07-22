@@ -45,7 +45,9 @@
                     $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
                     if($stmt->rowCount() > 0){
-                        echo "hoi";
+                        $conn = connectDB();
+                        $stmt = "UPDATE likes_vragen SET waardering='1' WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");;
+                        $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
 
                     }else{
                         $score = 1;                    
