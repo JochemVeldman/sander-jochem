@@ -8,12 +8,25 @@
     
     <script type="text/javascript">
         function roep_vragen(){
-            console.log('changed');
             $.ajax({
                 type: 'POST', 
                 url: 'laadt_vragen.php', // here posting value to your php file
                 data: {
                     my_value : $('#categorie').val()
+                },
+                success: function (answer) {
+                    $("#vragen").html(answer) // here you can define an alert function for after success or you can use it with an id for showing the response
+                }
+            })
+        }
+        
+        function search_vragen(){
+            $.ajax({
+                type: 'POST', 
+                url: 'search_vragen.php', // here posting value to your php file
+                data: {
+                    my_value : $('#search_vragen').val(),
+                    categorie: $('#categorie').val()
                 },
                 success: function (answer) {
                     $("#vragen").html(answer) // here you can define an alert function for after success or you can use it with an id for showing the response
@@ -49,7 +62,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="input-group stylish-input-group">
-                            <input type="text" class="form-control"  placeholder="Search" >
+                            <input type="text" class="form-control"  placeholder="Zoeken" name="search_vragen" id="search_vragen" oninput="search_vragen();">
                             <span class="input-group-addon">
                                 <button type="submit">
                                     <span class="glyphicon glyphicon-search"></span>
