@@ -2,6 +2,7 @@
 <!--goede versie -->
 
 <head>
+    
     <?php 
             include_once('functions/mainfunctions.php');
             include_once('includes/links.php');
@@ -34,22 +35,7 @@
             $conn = null;
         ?>
     <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_reactie'])){
-                
-                $conn = connectDB();
-
-                $statement = $conn->prepare("INSERT INTO reacties(reactie, gebruiker_id, vraag_id, datum, tijdstip)
-                    VALUES(:reactie, :gebruiker_id, :vraag_id, :datum, :tijdstip)");
-                
-                $statement->execute(array(
-                    "reactie" => test_input($_POST["plaats_reactie"]),
-                    "gebruiker_id" => $_SESSION['id'],
-                    "vraag_id" => $_GET['id'],
-                    "datum" => date("Y-m-d"),
-                    "tijdstip" => date("H:i:sa")
-                ));
-                $melding = true;
-            }
+            
         
         ?>
         <?php
@@ -96,7 +82,35 @@
     
     
         ?>
+    <script>
+        $(document).ready(function(){
+            var submit = $('#submit_reactie');
 
+            $('#plaats_reactie').on('submit', function(e) {
+                // prevent default action
+                e.preventDefault();
+                // send ajax request
+                $.ajax({
+                    url: 'post_reactie.php',
+                    type: 'POST',
+                    cache: false,
+                    data: $('#plaats_reactie').serialize(), //form serizlize data
+                    success: function(data){
+                        // Append with fadeIn see http://stackoverflow.com/a/978731
+                        var item = $(data).hide().fadeIn(800);
+                        $('#reacties').prepend(item);
+
+                        // reset form and button
+                        $('#plaats_reactie').trigger('reset');
+                    },
+                    error: function(e){
+                        alert(e);
+                    }
+                });
+            });
+            });
+    </script>
+    
 </head>
 
 <body>
@@ -144,57 +158,36 @@
                         }
                     ?>
 
-                    <form method="POST" action="">
+                    <form method="POST" action="" id="plaats_reactie" name="plaats_reactie">
                         <div class="form-group">
-                            <textarea placeholder="Plaats reactie" type="text" class="form-control" style="height: 80px;" id="plaats_reactie" name="plaats_reactie" onInput="check_reactie()"></textarea>
+                            <textarea placeholder="Plaats reactie" type="text" class="form-control" style="height: 80px;" id="plaats_reactie" name="plaats_reactie"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-default" id="submit_reactie" name="submit_reactie" disabled>Plaats reactie</button>
+                        <input type="hidden" value="<?php echo $_GET['id'];?>" name="vraag_id">
+                        <button type="submit" class="btn btn-default" id="submit_reactie" name="submit_reactie">Plaats reactie</button>
                     </form>
                     <br>
 
+                    <div id="reacties">
+                    </div>
+                        <?php
+                            try{
+                                $conn = connectDB();          
+                                $sql = 'SELECT * FROM reacties INNER JOIN gebruikers ON reacties.gebruiker_id = gebruikers.id WHERE vraag_id =' . $_GET['id'] . ' ORDER BY reacties.reactie_id DESC';
 
-                    <?php
-                    try{
-                        $conn = connectDB();          
-                        $sql = 'SELECT * FROM reacties INNER JOIN gebruikers ON reacties.gebruiker_id = gebruikers.id WHERE vraag_id =' . $_GET['id'] . ' ORDER BY reacties.reactie_id DESC';
-                
-                        foreach ($conn->query($sql) as $row) {
-                            echo '<div class="reactie_blok"><p style= "font-family: Montserrat; font-size: 14px;">' . $row['reactie'] . '</p>' . '<p style="font-family: Montserrat; font-size: 12px; padding-bottom: 7px;">' . $row['gebruikersnaam'] . ' ' . $row['datum'] . ' ' . $row['tijdstip'] . '</p>' . '</div>';
-                        }
-                    }
-                    catch(PDOException $e){
-                        echo $e->getMessage();
-                    }
+                                foreach ($conn->query($sql) as $row) {
+                                    echo '<div class="reactie_blok"><p style= "font-family: Montserrat; font-size: 14px;">' . $row['reactie'] . '</p>' . '<p style="font-family: Montserrat; font-size: 12px; padding-bottom: 7px;">' . $row['gebruikersnaam'] . ' ' . $row['datum'] . ', ' . $row['tijdstip'] . '</p>' . '</div>';
+                                }
+                            }
+                            catch(PDOException $e){
+                                echo $e->getMessage();
+                            }
 
-                ?>
+                        ?>
+                    
             </div>
 
         </div>
     </div>
-    <script>
-        var reactieOK = false;
-
-        function enable_button() {
-            if (reactieOK == true) {
-                document.getElementById("submit_reactie").disabled = false;
-            } else {
-                document.getElementById("submit_reactie").disabled = true;
-            }
-        }
-
-        function check_reactie() {
-            var reactie = document.getElementById("plaats_reactie").value;
-            if (reactie.length > 0) {
-                document.getElementById("plaats_reactie").style.borderColor = "#ccc";
-                reactieOK = true;
-            } else {
-                document.getElementById("plaats_reactie").style.borderColor = "red";
-                reactieOK = false;
-            }
-            enable_button()
-        }
-
-    </script>
 </body>
 
 </html>
