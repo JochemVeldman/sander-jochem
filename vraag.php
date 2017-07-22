@@ -47,15 +47,9 @@
 
                     if($stmt->rowCount() > 0){
                         $conn = connectDB();
-<<<<<<< HEAD
                         $stmt = "UPDATE likes_vragen SET waardering='1' WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id";
                         $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
                     
-=======
-                        $stmt = "UPDATE likes_vragen SET waardering='1' WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");;
-                        $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
-
->>>>>>> master
                     }else{
                         $score = 1;                    
 
@@ -76,7 +70,9 @@
                 $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
                 if($stmt->rowCount() > 0){
-                    echo 'al geliked'; 
+                    $conn = connectDB();
+                    $stmt = "UPDATE likes_vragen SET waardering='0' WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id";
+                    $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
                 }else{
                     $score = 0;                    
                     
@@ -91,21 +87,7 @@
                 }
 
             } 
-    
-            $conn = connectDB();
-            //SELECT * FROM likes_vragen WHERE gebruiker_id =". $_SESSION['id'] . "AND vraag_id =" . $_GET['id']
-            $stmt = $conn->prepare("SELECT * FROM likes_vragen WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");
-            $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
-            $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
-            if($stmt->rowCount() > 0){
-                echo 'al geliked'; 
-            }else{
-                echo 'Nog niet geliked';
-            }
-
-    
-    
         ?>
             <script>
                 $(document).ready(function() {
