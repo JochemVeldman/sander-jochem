@@ -2,7 +2,7 @@
 <!--goede versie -->
 
 <head>
-    
+
     <?php 
             include_once('functions/mainfunctions.php');
             include_once('includes/links.php');
@@ -39,78 +39,95 @@
         
         ?>
         <?php
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omhoog'])){                   $conn = connectDB();
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omhoog'])){                       $conn = connectDB();
+                    $stmt = $conn->prepare("SELECT * FROM likes_vragen WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");
+                    $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
+                    $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
-                $score = 1;                    
+                    if($stmt->rowCount() > 0){
+                        echo "hoi";
+
+                    }else{
+                        $score = 1;                    
+
+                        $statement = $conn->prepare("INSERT INTO likes_vragen(vraag_id, gebruiker_id, waardering)
+                            VALUES(:vraag_id, :gebruiker_id, :waardering)");
+
+                        $statement->execute(array(
+                            "vraag_id" => $_GET['id'],
+                            "gebruiker_id" => $_SESSION['id'],
+                            "waardering" => $score
+                        ));;
+                    }
+
+            }else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omlaag'])){
+                $conn = connectDB();
+                $stmt = $conn->prepare("SELECT * FROM likes_vragen WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");
+                $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
+                $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+
+                if($stmt->rowCount() > 0){
+                    echo 'al geliked'; 
+                }else{
+                    $score = 0;                    
                     
-                $statement = $conn->prepare("INSERT INTO likes_vragen(vraag_id, gebruiker_id, waardering)
-                    VALUES(:vraag_id, :gebruiker_id, :waardering)");
+                    $statement = $conn->prepare("INSERT INTO likes_vragen(vraag_id, gebruiker_id, waardering)
+                        VALUES(:vraag_id, :gebruiker_id, :waardering)");
                     
-                $statement->execute(array(
-                    "vraag_id" => $_GET['id'],
-                    "gebruiker_id" => $_SESSION['id'],
-                    "waardering" => $score
-                ));
-            } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omlaag'])){
-        $conn = connectDB();
-        $score = 0;
+                    $statement->execute(array(
+                        "vraag_id" => $_GET['id'],
+                        "gebruiker_id" => $_SESSION['id'],
+                        "waardering" => $score
+                    ));;
+                }
 
-        $statement = $conn->prepare("INSERT INTO likes_vragen(vraag_id, gebruiker_id, waardering)
-            VALUES(:vraag_id, :gebruiker_id,  :waardering)");
-
-        $statement->execute(array(
-            "vraag_id" => $_GET['id'],
-            "gebruiker_id" => $_SESSION['id'],
-            "waardering" => $score
-        ));
-    } 
+            } 
     
-    $liked = false;
-    $conn = connectDB();
-    //SELECT * FROM likes_vragen WHERE gebruiker_id =". $_SESSION['id'] . "AND vraag_id =" . $_GET['id']
-    $stmt = $conn->prepare("SELECT * FROM likes_vragen WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");
-    $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
-    $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+            $conn = connectDB();
+            //SELECT * FROM likes_vragen WHERE gebruiker_id =". $_SESSION['id'] . "AND vraag_id =" . $_GET['id']
+            $stmt = $conn->prepare("SELECT * FROM likes_vragen WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");
+            $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
+            $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
-    if($stmt->rowCount() > 0){
-        echo 'al geliked'; 
-        $liked = true;
-    }else{
-        echo 'Nog niet geliked';
-    }
-    
+            if($stmt->rowCount() > 0){
+                echo 'al geliked'; 
+            }else{
+                echo 'Nog niet geliked';
+            }
+
     
     
         ?>
-    <script>
-        $(document).ready(function(){
-            var submit = $('#submit_reactie');
+            <script>
+                $(document).ready(function() {
+                    var submit = $('#submit_reactie');
 
-            $('#plaats_reactie').on('submit', function(e) {
-                // prevent default action
-                e.preventDefault();
-                // send ajax request
-                $.ajax({
-                    url: 'post_reactie.php',
-                    type: 'POST',
-                    cache: false,
-                    data: $('#plaats_reactie').serialize(), //form serizlize data
-                    success: function(data){
-                        // Append with fadeIn see http://stackoverflow.com/a/978731
-                        var item = $(data).hide().fadeIn(800);
-                        $('#reacties').prepend(item);
+                    $('#plaats_reactie').on('submit', function(e) {
+                        // prevent default action
+                        e.preventDefault();
+                        // send ajax request
+                        $.ajax({
+                            url: 'post_reactie.php',
+                            type: 'POST',
+                            cache: false,
+                            data: $('#plaats_reactie').serialize(), //form serizlize data
+                            success: function(data) {
+                                // Append with fadeIn see http://stackoverflow.com/a/978731
+                                var item = $(data).hide().fadeIn(800);
+                                $('#reacties').prepend(item);
 
-                        // reset form and button
-                        $('#plaats_reactie').trigger('reset');
-                    },
-                    error: function(e){
-                        alert(e);
-                    }
+                                // reset form and button
+                                $('#plaats_reactie').trigger('reset');
+                            },
+                            error: function(e) {
+                                alert(e);
+                            }
+                        });
+                    });
                 });
-            });
-        });
-    </script>
-    
+
+            </script>
+
 </head>
 
 <body>
@@ -169,7 +186,7 @@
 
                     <div id="reacties">
                     </div>
-                        <?php
+                    <?php
                             try{
                                 $conn = connectDB();          
                                 $sql = 'SELECT * FROM reacties INNER JOIN gebruikers ON reacties.gebruiker_id = gebruikers.id WHERE vraag_id =' . $_GET['id'] . ' ORDER BY reacties.reactie_id DESC';
@@ -183,7 +200,7 @@
                             }
 
                         ?>
-                    
+
             </div>
 
         </div>
