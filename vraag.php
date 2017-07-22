@@ -65,11 +65,7 @@
                     "gebruiker_id" => $_SESSION['id'],
                     "waardering" => $score
                 ));
-            }
-        ?>
-
-            <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omlaag'])){
+            } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omlaag'])){
         $conn = connectDB();
         $score = 0;
 
@@ -82,7 +78,23 @@
             "waardering" => $score
         ));
     } 
+    
+    $liked = false;
+    $conn = connectDB();
+    //SELECT * FROM likes_vragen WHERE gebruiker_id =". $_SESSION['id'] . "AND vraag_id =" . $_GET['id']
+    $stmt = $conn->prepare("SELECT * FROM likes_vragen WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");
+    $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
+    $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
+    if($stmt->rowCount() > 0){
+        echo 'al geliked'; 
+        $liked = true;
+    }else{
+        echo 'Nog niet geliked';
+    }
+    
+    
+    
         ?>
 
 </head>
