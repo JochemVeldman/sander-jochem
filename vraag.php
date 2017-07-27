@@ -43,46 +43,69 @@
                     $conn = connectDB();
                     $stmt = $conn->prepare("SELECT * FROM likes_vragen WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");
                     $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
-                    $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-
+                                        
+                    //als de waardering bestaat
                     if($stmt->rowCount() > 0){
-                        $conn = connectDB();
-                        $stmt = "UPDATE likes_vragen SET waardering='1' WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id";
-                        $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
-                    
-                    }else{
-                        $score = 1;                    
+                        try {
+                            $conn = connectDB();
+                            // set the PDO error mode to exception
+                            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+                            $sql = "UPDATE likes_vragen SET waardering=1 WHERE vraag_id = :vraag_id AND gebruiker_id = :gebruiker_id";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bindValue(":gebruiker_id", $_SESSION['id']);
+                            $stmt->bindValue(":vraag_id", $_GET['id']);
+                            $stmt->execute();
+                        }catch(PDOException $e){
+                            echo $sql . "<br>" . $e->getMessage();
+                        }
+
+                        $conn = null;
+                    
+                    }else{               
                         $statement = $conn->prepare("INSERT INTO likes_vragen(vraag_id, gebruiker_id, waardering)
                             VALUES(:vraag_id, :gebruiker_id, :waardering)");
 
                         $statement->execute(array(
                             "vraag_id" => $_GET['id'],
                             "gebruiker_id" => $_SESSION['id'],
-                            "waardering" => $score
+                            "waardering" => 1
                         ));;
                     }
 
-            }else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omlaag'])){
+            }
+    
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_omlaag'])){
                 $conn = connectDB();
                 $stmt = $conn->prepare("SELECT * FROM likes_vragen WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id");
                 $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
-                $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
+                //als de waardering bestaat
                 if($stmt->rowCount() > 0){
-                    $conn = connectDB();
-                    $stmt = "UPDATE likes_vragen SET waardering='0' WHERE gebruiker_id = :gebruiker_id AND vraag_id = :vraag_id";
-                    $stmt->execute(array(':gebruiker_id'=>$_SESSION['id'], ':vraag_id' => $_GET['id']));
-                }else{
-                    $score = 0;                    
-                    
+                    try {
+                        $conn = connectDB();
+                        // set the PDO error mode to exception
+                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                        $sql = "UPDATE likes_vragen SET waardering=0 WHERE vraag_id = :vraag_id AND gebruiker_id = :gebruiker_id";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bindValue(":gebruiker_id", $_SESSION['id']);
+                        $stmt->bindValue(":vraag_id", $_GET['id']);
+                        $stmt->execute();
+                    }catch(PDOException $e){
+                        echo $sql . "<br>" . $e->getMessage();
+                    }
+
+                    $conn = null;
+
+                }else{               
                     $statement = $conn->prepare("INSERT INTO likes_vragen(vraag_id, gebruiker_id, waardering)
                         VALUES(:vraag_id, :gebruiker_id, :waardering)");
-                    
+
                     $statement->execute(array(
                         "vraag_id" => $_GET['id'],
                         "gebruiker_id" => $_SESSION['id'],
-                        "waardering" => $score
+                        "waardering" => 0
                     ));;
                 }
 
@@ -183,7 +206,8 @@
                                 $sql = 'SELECT * FROM reacties INNER JOIN gebruikers ON reacties.gebruiker_id = gebruikers.id WHERE vraag_id =' . $_GET['id'] . ' ORDER BY reacties.reactie_id DESC';
 
                                 foreach ($conn->query($sql) as $row) {
-                                    echo '<div class="reactie_blok"><p style= "font-family: Montserrat; font-size: 14px;">' . $row['reactie'] . '</p>' . '<p style="font-family: Montserrat; font-size: 12px; padding-bottom: 7px;">' . $row['gebruikersnaam'] . ' ' . $row['datum'] . ', ' . $row['tijdstip'] . '</p>' . '</div>';
+                                    echo '<div class="reactie_blok"><p style= "font-family: Montserrat; font-size: 14px;">' . $row['reactie'] . '</p>' . '<p style="font-family: Montserrat; font-size: 12px; padding-bottom: 7px;">' . $row['gebruikersnaam'] . ' ' . $row['datum'] . ', ' . $row['tijdstip'] . '</p>' . '<form method="POST" action="" id="reactie_op_reactie" name="plaats_reactie"><button type="submit" class="btn btn-default" id="submit_reactie_op_reactie" name="submit_reactie">Reageer</button>
+                        </form></div>';
                                 }
                             }
                             catch(PDOException $e){
@@ -191,6 +215,7 @@
                             }
 
                         ?>
+
 
             </div>
 
